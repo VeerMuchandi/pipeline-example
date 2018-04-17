@@ -1,4 +1,4 @@
-node('maven') {
+node('') {
 stage 'buildInDevelopment'
 openshiftBuild(namespace: 'development', buildConfig: 'myapp', showBuildLogs: 'true')
 stage 'deployInDevelopment'
