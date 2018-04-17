@@ -1,6 +1,7 @@
 ## Creating your own pipeline
 
-###Video 1: Creating your own pipeline
+
+### Video 1: Creating your own pipeline
 
 The build configuration used for creating the pipeline is 
 [https://github.com/VeerMuchandi/pipeline-example/blob/master/pipeline.yml]()
@@ -16,7 +17,7 @@ The edited Jenkinsfile is [https://github.com/VeerMuchandi/pipeline-example/blob
 
 In this example, the pipeline runs in the CICD Project.  We will build and deploy an application first in a project named 'Development'. Later we will push the image created into a project named 'Testing'.
 
-![](pipelines example.tiff)
+![](pipelines_example.tiff)
 
 
 Here are the commands I used from the OpenShift CLI:
