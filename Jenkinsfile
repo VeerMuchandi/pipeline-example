@@ -1,11 +1,17 @@
 node('') {
 stage ('buildInDevelopment')
-  {openshiftBuild(namespace: 'development', buildConfig: 'myapp', showBuildLogs: 'true')}
+  {sh 'oc start-build myapp -n development'}
 stage ('deployInDevelopment')
-  {openshiftDeploy(namespace: 'development', deploymentConfig: 'myapp')
-   openshiftScale(namespace: 'development', deploymentConfig: 'myapp',replicaCount: '2')}
+  {
+   sh 'oc rollout latest myapp -n development'
+   sh 'oc scale --replicas=2 myapp -n development'
+   }
 stage ('deployInTesting')
-  {openshiftTag(namespace: 'development', sourceStream: 'myapp',  sourceTag: 'latest', destinationStream: 'myapp', destinationTag: 'promoteToQA')
-   openshiftDeploy(namespace: 'testing', deploymentConfig: 'myapp', )
-   openshiftScale(namespace: 'testing', deploymentConfig: 'myapp',replicaCount: '3')}
+  {
+    sh 'oc tag development/myapp:latest  development/myapp:promoteToQA'
+    sh 'oc rollout latest myapp -n testing'
+    sh 'oc scale --replicas=3 myapp -n testing'
+   #openshiftTag(namespace: 'development', sourceStream: 'myapp',  sourceTag: 'latest', destinationStream: 'myapp', destinationTag: 'promoteToQA')
+   #openshiftDeploy(namespace: 'testing', deploymentConfig: 'myapp', )
+   #openshiftScale(namespace: 'testing', deploymentConfig: 'myapp',replicaCount: '3')}
 }
