@@ -10,5 +10,5 @@ stage ('deployInTesting')
   {
     sh 'oc tag development/myapp:latest  development/myapp:promoteToQA'
     sh 'oc rollout latest myapp -n testing'
-    sh 'oc scale --replicas=3 myapp -n testing'
+    sh 'oc scale --replicas=3 myapp -n testing' }
 }
