@@ -24,7 +24,7 @@ pipeline {
         script {
          openshift.withCluster() {
           openshift.withProject("development") {
-            openshift.selector("dc", "myapp").scale("replicas",3)
+            openshift.selector("dc", "myapp").scale("replicas","3")
           }
          }
         }
