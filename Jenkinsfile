@@ -22,6 +22,16 @@ pipeline {
          }
         }
       }
+      steps {
+        script {
+         openshift.withCluster() {
+          openshift.withProject("development") {
+            openshift.selector("dc", "myapp").scale(3)
+          }
+         }
+        }
+      }
     }
+    
   }
 }
