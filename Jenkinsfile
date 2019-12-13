@@ -21,8 +21,6 @@ pipeline {
           }
          }
         }
-      }
-      steps {
         script {
          openshift.withCluster() {
           openshift.withProject("development") {
