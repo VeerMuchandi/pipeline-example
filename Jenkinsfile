@@ -6,7 +6,7 @@ pipeline {
         script {
          openshift.withCluster() {
           openshift.withProject("development") {
-            openshift.selector("bc", "myapp").startBuild()
+            openshift.selector("bc", "myapp").startBuild().logs('-f')
           }
          }
         }
