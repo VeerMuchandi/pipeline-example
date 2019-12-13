@@ -16,7 +16,7 @@ pipeline {
       steps {
         script {
          openshift.withCluster() {
-          openshift.withProject("development") {
+         copenshift.withProject("development") {
             openshift.selector("dc", "myapp").rollout().latest()
           }
          }
@@ -25,6 +25,35 @@ pipeline {
          openshift.withCluster() {
           openshift.withProject("development") {
             openshift.selector("dc", "myapp").scale("--replicas=3")
+          }
+         }
+        }
+      }
+    }
+    stage('Promote to QA') {
+      steps {
+        script {
+          openshift.withCluster() {
+           openshift.withProject("development") {
+            openshift.tag("development/myapp:latest", "development/myapp:promoteToQA")
+           }
+          }
+        }
+      }
+    }
+    stage('Deploy In QA') {
+      steps {
+        script {
+         openshift.withCluster() {
+         copenshift.withProject("testing") {
+            openshift.selector("dc", "myapp").rollout().latest()
+          }
+         }
+        }
+        script {
+         openshift.withCluster() {
+          openshift.withProject("testing") {
+            openshift.selector("dc", "myapp").scale("--replicas=2")
           }
          }
         }
