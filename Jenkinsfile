@@ -4,7 +4,7 @@ pipeline {
     stage('Build In Development') {
       steps {
         script {
-          openshift.withProject(development) {
+          openshift.withProject("development") {
             openshift.selector("bc", "myapp").startBuild()
           }
         }
@@ -13,7 +13,7 @@ pipeline {
     stage('Deploy In Development') {
       steps {
         script {
-          openshift.withProject(development) {
+          openshift.withProject("development") {
             openshift.selector("dc", "myapp").rollout().latest()
           }
         }
