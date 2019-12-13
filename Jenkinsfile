@@ -5,7 +5,7 @@ pipeline {
       steps {
         script {
          openshift.withCluster() {
-          openshift.withProject("development"") {
+          openshift.withProject("development") {
             openshift.selector("bc", "myapp").startBuild()
           }
          }
@@ -16,7 +16,7 @@ pipeline {
       steps {
         script {
          openshift.withCluster() {
-          openshift.withProject("development"") {
+          openshift.withProject("development") {
             openshift.selector("dc", "myapp").rollout().latest()
           }
          }
